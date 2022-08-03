@@ -134,11 +134,18 @@
             "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
             "text_style": "body"
           }
+        },
+        "77c0eaab-ade9-4f43-8aaf-cd1797988698": {
+          "type": "block_custom_html",
+          "settings": {
+            "custom_html": "<iframe src=\"https:\/\/hardwood-doors-store.myshopify.com\/products\/rustic-full-lite?variant=41819085078704\" width=\"500\" height=\"500\"><\/iframe>"
+          }
         }
       },
       "block_order": [
         "image-with-text-0",
-        "image-with-text-1"
+        "image-with-text-1",
+        "77c0eaab-ade9-4f43-8aaf-cd1797988698"
       ],
       "settings": {
         "height": "small",
