@@ -138,7 +138,7 @@
         "77c0eaab-ade9-4f43-8aaf-cd1797988698": {
           "type": "block_custom_html",
           "settings": {
-            "custom_html": "<iframe src=\"https:\/\/hardwood-doors-store.myshopify.com\/products\/rustic-full-lite\" width=\"500\" height=\"500\"><\/iframe>\n<script>\nwindow.addEventListener('message', function (e) {\n    \/\/ Get the sent data\n    const data = e.data;\n\n    \/\/ If you encode the message in JSON before sending them,\n    \/\/ then decode here\n    \/\/ const decoded = JSON.parse(data);\nconsole.log(decoded);\n});\n<\/script>"
+            "custom_html": "<iframe src=\"https:\/\/hardwood-doors-store.myshopify.com\/products\/rustic-full-lite\" width=\"500\" height=\"500\"><\/iframe>\n<script>\nwindow.addEventListener('message', function (e) {\n    \/\/ Get the sent data\n    const data = e.data;\n\nconsole.log(data);\n});\n<\/script>"
           }
         }
       },
