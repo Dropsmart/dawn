@@ -53,15 +53,16 @@
           this.addEventListener("change", this.onVariantChange);
       }
       onVariantChange() {
+          window.parent.postMessage("teste", '*');
+          /*
           this.getSelectedOptions();
           this.getSelectedVariant();
           if(this.currentVariant) {
-              window.parent.postMessage(this.currentVariant.id, '*');
               this.updateURL();
               this.updateFormID();
               this.updatePrice();
               this.getSameTags();
-          }
+          }*/
       }
       getSelectedOptions() {
           this.options = Array.from(this.querySelectorAll('select'), (select) => select.value);
