@@ -1,6 +1,9 @@
 
 {% assign productId = request.params.id %}
 {% assign selected_variant = product.selected_or_first_available_variant %}
+{%
+  assign current_product = collection.products[productId]
+%}
 
 <div class="max-w-6xl mx-auto my-8">
     <div class="product--information sticky top-5 p-2">
