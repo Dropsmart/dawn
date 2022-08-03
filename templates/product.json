@@ -138,7 +138,7 @@
         "77c0eaab-ade9-4f43-8aaf-cd1797988698": {
           "type": "block_custom_html",
           "settings": {
-            "custom_html": "<iframe src=\"https:\/\/hardwood-doors-store.myshopify.com\/products\/rustic-full-lite\" width=\"200\" style=\"border:none\" height=\"100\"><\/iframe>\n<script>\nwindow.addEventListener('message', function (e) {\n    \/\/ Get the sent data\n    const data = e.data;\n\nconsole.log('data', data);\n});\n<\/script>"
+            "custom_html": "<iframe src=\"https:\/\/hardwood-doors-store.myshopify.com\/products\/rustic-full-lite\" width=\"200\" style=\"border:none\" height=\"100\"><\/iframe>\n<script>\nwindow.addEventListener('message', function (e) {\n    \/\/ Get the sent data\n    const data = e.data;\n\nconsole.log('data', data);\n});\n\nfetch('https:\/\/hardwood-doors-store.myshopify.com\/collections\/rustic-collection?view=json').then(function(response) {\n          response.json().then(function(data) {\n            let orderBumpdata = data.products;\n\nconsole.log(orderBumpdata);\n          });\n        }).catch(function(err) {\n          console.error('Failed retrieving information', err);\n        });\n<\/script>"
           }
         }
       },
