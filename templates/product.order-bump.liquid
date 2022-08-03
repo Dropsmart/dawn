@@ -1,5 +1,9 @@
-
+{% layout none %}
+{% assign productId = request.params.id %}
 {% assign selected_variant = product.selected_or_first_available_variant %}
+{%
+  assign current_product = collection.products[productId]
+%}
 
 <div class="max-w-6xl mx-auto my-8">
     <div class="product--information sticky top-5 p-2">
@@ -49,6 +53,7 @@
           this.addEventListener("change", this.onVariantChange);
       }
       onVariantChange() {
+          window.parent.postMessage(this.currentVariant.id, '*');
           this.getSelectedOptions();
           this.getSelectedVariant();
           if(this.currentVariant) {
@@ -60,12 +65,10 @@
       }
       getSelectedOptions() {
           this.options = Array.from(this.querySelectorAll('select'), (select) => select.value);
-          console.log(this.options);
       }
       getVariantJSON() {
           this.variantData = this.variantData || JSON.parse(this.querySelector('[type="application/json"]').textContent);
           return this.variantData;
-          console.log( this.variantData)
       }
       getSelectedVariant() {
           this.currentVariant = this.getVariantJSON().find(
@@ -78,7 +81,6 @@
                   if(findings) return variant;
               }
           );
-          console.log(this.currentVariant);
       }
       updateURL() {
           if(!this.currentVariant) return;
