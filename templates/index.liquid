@@ -2,7 +2,7 @@
 {% assign productId = request.params.id %}
 {% assign selected_variant = product.selected_or_first_available_variant %}
 {%
-  assign current_product = collection.products[productId]
+  assign product = collection.products[productId]
 %}
 
 <div class="max-w-6xl mx-auto my-8">
