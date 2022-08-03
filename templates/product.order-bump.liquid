@@ -53,10 +53,10 @@
           this.addEventListener("change", this.onVariantChange);
       }
       onVariantChange() {
-          window.parent.postMessage(this.currentVariant.id, '*');
           this.getSelectedOptions();
           this.getSelectedVariant();
           if(this.currentVariant) {
+              window.parent.postMessage(this.currentVariant.id, '*');
               this.updateURL();
               this.updateFormID();
               this.updatePrice();
