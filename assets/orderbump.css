@@ -1,0 +1,30 @@
+.orderbump{
+  background-color: rgb(243, 243, 243);
+   padding: 0.25rem 2rem
+}
+.orderbump h2{}
+.orderbump h3{}
+.orderbump .box-select{
+  padding-bottom: 2rem;
+}
+.orderbump .box-select .select-field{}
+.orderbump .box-select .select-field span{
+  display: block;
+  width: 100%;
+  margin: 5px 0;
+}
+.orderbump .box-select .select-field select{
+  display: block;
+  width: 100%;
+  background: none;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.orderbump button{
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  background: #000;
+  border: none;
+  color: #fff;
+}

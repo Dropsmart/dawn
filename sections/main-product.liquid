@@ -7,6 +7,7 @@
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+  {{ 'orderbump.css' | asset_url | stylesheet_tag }}
 
   {%- style -%}
     .section-{{ section.id }}-padding {
@@ -39,7 +40,7 @@
           <a class="skip-to-content-link button visually-hidden quick-add-hidden" href="#ProductInfo-{{ section.id }}">
             {{ "accessibility.skip_to_product_info" | t }}
           </a>
-          <ul id="Slider-Gallery-{{ section.id }}" class="product__media-list contains-media grid grid--peek list-unstyled slider slider--mobile" role="list">
+          <ul id="Slider-Gallery-{{ section.id }}" class="product__media-list contains-media grid grid--peek list-unstyled slider " role="list">
             {%- liquid
               assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src'
               assign media_count = product.media.size
@@ -409,6 +410,46 @@
                 </div>
               </div>
             </noscript>
+
+          <!-- BOX -->
+
+
+
+
+            <order-bump class="orderbump">
+              <h2>Nome Produto</h2>
+              <h3>Variants: </h3>
+              <div class="box-select">
+                <form action="">
+                  <div class="select-field">
+                    <span>Name</span>
+                    <select name="" id="">
+                      <option value="">asdasdas</option>
+
+                    </select>
+                  </div>
+                  <div class="select-field">
+                    <span>Name</span>
+                    <select name="" id="">
+                      <option value="">asdasdas</option>
+
+                    </select>
+                  </div>
+                  <div class="select-field">
+                    <span>Name</span>
+                    <select name="" id="">
+                      <option value="">asdasdas</option>
+
+                    </select>
+                  </div>
+                  <button type="submit" name="add"  >Enviar</button>
+                </form>
+              </div>
+            </order-bump>
+
+
+
+
           {%- when 'buy_buttons' -%}
             <div {{ block.shopify_attributes }}>
               <product-form class="product-form">
@@ -472,6 +513,7 @@
                 </template>
               </pickup-availability>
             </div>
+
 
             <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
           {%- when 'rating' -%}
@@ -559,6 +601,75 @@
     </script>
     <script src="{{ 'product-model.js' | asset_url }}" defer></script>
   {%- endif -%}
+
+  <!-- {% javascript %}
+  const handleIntersection = (entries, observer) => {
+    if (!entries[0].isIntersecting) return;
+
+    observer.unobserve(productOrderBumpSection);
+
+    const url = 'http://127.0.0.1:9292/collections/rustic-collection?view=json';
+
+    fetch(url)
+      .then(response => response.text())
+      .then(text => {
+        const html = document.createElement('div');
+        html.innerHTML = text;
+        const orderbump = html.querySelector('.orderbump');
+
+        if (orderbump && orderbump.innerHTML.trim().length) {
+          productOrderBumpSection.innerHTML = orderbump.innerHTML;
+        }
+
+        console.log(text)
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  };
+
+  const productOrderBumpSection = document.querySelector('.orderbump');
+  const observer = new IntersectionObserver(handleIntersection, {rootMargin: '0px 0px 200px 0px'});
+
+  observer.observe(productOrderBumpSection);
+{% endjavascript %} -->
+
+  <script>
+     class OrderbumpSelector extends HTMLElement {
+      constructor() {
+          super();
+          this.getProductsJSON();
+
+      }
+      onVariantChange() {
+
+
+      }
+
+      getProductsJSON() {
+        const URL_TO_FETCH = 'http://127.0.0.1:9292/collections/rustic-collection?view=json';
+
+        fetch(URL_TO_FETCH).then(function(response) {
+          response.json().then(function(data) {
+            let orderBumpdata = data.products;
+
+
+          });
+        }).catch(function(err) {
+          console.error('Failed retrieving information', err);
+        });
+
+      }
+
+
+
+  }
+  customElements.define("order-bump", OrderbumpSelector);
+  </script>
+
+
+
+
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
