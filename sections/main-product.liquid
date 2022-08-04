@@ -417,34 +417,50 @@
 
 
             <order-bump class="orderbump">
-              <h2>Nome Produto</h2>
-              <h3>Variants: </h3>
-              <div class="box-select">
-                <form action="">
-                  <div class="select-field">
-                    <span>Name</span>
-                    <select name="" id="">
-                      <option value="">asdasdas</option>
 
-                    </select>
-                  </div>
-                  <div class="select-field">
-                    <span>Name</span>
-                    <select name="" id="">
-                      <option value="">asdasdas</option>
+              {% for product in collections.all.products %}
+                {% if product.tags contains "Rustic" %}
 
-                    </select>
-                  </div>
-                  <div class="select-field">
-                    <span>Name</span>
-                    <select name="" id="">
-                      <option value="">asdasdas</option>
+                <h2>{{product.title }}</h2>
+                <h3>Variants: </h3>
+                <div class="box-select">
+                  {% unless product.has_only_default_variant %}
+                  <variant-selector data-url="{{ product.url}}" data-section="{{ section.id }}">
+                      {% for option in product.options_with_values %}
+                          <label for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
 
-                    </select>
-                  </div>
-                  <button type="submit" name="add"  >Enviar</button>
-                </form>
-              </div>
+                          <div class="my-2">
+                              <select
+                                  name="options[{{ option.name | escape }}]"
+                                  id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                                  class="w-full border py-3 px-3"
+                              >
+                                  {% for value in option.values %}
+                                      <option
+                                          value="{{ value | escape }}"
+                                          {% if option.selected_value == value %}
+                                              selected="selected"
+                                          {% endif %}
+                                      >
+                                          {{ value }}
+                                      </option>
+                                  {% endfor %}
+                              </select>
+                          </div>
+
+                          <script type="application/json">
+                              {{ product.variants | json }}
+                          </script>
+
+                      {% endfor %}
+                  </variant-selector>
+              {% endunless %}
+                </div>
+
+                {% endif %}
+                {% endfor %}
+
+
             </order-bump>
 
 
@@ -602,69 +618,81 @@
     <script src="{{ 'product-model.js' | asset_url }}" defer></script>
   {%- endif -%}
 
-  <!-- {% javascript %}
-  const handleIntersection = (entries, observer) => {
-    if (!entries[0].isIntersecting) return;
-
-    observer.unobserve(productOrderBumpSection);
-
-    const url = 'http://127.0.0.1:9292/collections/rustic-collection?view=json';
-
-    fetch(url)
-      .then(response => response.text())
-      .then(text => {
-        const html = document.createElement('div');
-        html.innerHTML = text;
-        const orderbump = html.querySelector('.orderbump');
-
-        if (orderbump && orderbump.innerHTML.trim().length) {
-          productOrderBumpSection.innerHTML = orderbump.innerHTML;
-        }
-
-        console.log(text)
-      })
-      .catch(e => {
-        console.error(e);
-      });
-  };
-
-  const productOrderBumpSection = document.querySelector('.orderbump');
-  const observer = new IntersectionObserver(handleIntersection, {rootMargin: '0px 0px 200px 0px'});
-
-  observer.observe(productOrderBumpSection);
-{% endjavascript %} -->
-
   <script>
-     class OrderbumpSelector extends HTMLElement {
-      constructor() {
-          super();
-          this.getProductsJSON();
+    class VariantSelector extends HTMLElement {
+        constructor() {
+            super();
+            this.addEventListener("change", this.onVariantChange);
+        }
+        onVariantChange() {
+            this.getSelectedOptions();
+            this.getSelectedVariant();
+            if(this.currentVariant) {
 
-      }
-      onVariantChange() {
-
-
-      }
-
-      getProductsJSON() {
-        const URL_TO_FETCH = 'http://127.0.0.1:9292/collections/rustic-collection?view=json';
-
-        fetch(URL_TO_FETCH).then(function(response) {
-          response.json().then(function(data) {
-            let orderBumpdata = data.products;
-
-
-          });
-        }).catch(function(err) {
-          console.error('Failed retrieving information', err);
-        });
-
-      }
+                this.updateFormID();
+                this.updatePrice();
+                this.getSameTags();
+            }
+        }
+        getSelectedOptions() {
+            this.options = Array.from(this.querySelectorAll('select'), (select) => select.value);
+            console.log(this.options);
+        }
+        getVariantJSON() {
+            this.variantData = this.variantData || JSON.parse(this.querySelector('[type="application/json"]').textContent);
+            return this.variantData;
 
 
+              }
+        getSelectedVariant() {
+            this.currentVariant = this.getVariantJSON().find(
+                (variant) => {
+                    const findings = !variant.options.map(
+                        (option, index) => {
+                            return this.options[index] === option;
+                        }
+                    ).includes(false);
+                    if(findings) return variant;
+                }
+            );
 
-  }
-  customElements.define("order-bump", OrderbumpSelector);
+            fetch(window.Shopify.routes.root + 'cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.currentVariant)
+                })
+                .then(response => {
+                  return response.json();
+                })
+                .catch((error) => {
+                  console.error('Error:', error);
+                });
+
+
+        }
+        updateURL() {
+            if(!this.currentVariant) return;
+            window.history.replaceState({}, '', `${this.dataset.url}?variant=${this.currentVariant.id}`);
+        }
+        updateFormID() {
+            const form_input = document.querySelector("#product-form").querySelector('input[name="id"]');
+            form_input.value = this.currentVariant.id;
+        }
+        updatePrice() {
+            fetch(`${this.dataset.url}?variant=${this.currentVariant.id}&section_id=${this.dataset.section}`)
+            .then((response) => response.text())
+            .then((responseText) => {
+                const id = `price-${this.dataset.section}`;
+                const html = new DOMParser().parseFromString(responseText, 'text/html');
+                const oldPrice = document.getElementById(id);
+                const newPrice = html.getElementById(id);
+                if(oldPrice && newPrice) oldPrice.innerHTML = newPrice.innerHTML;
+            });
+        }
+    }
+    customElements.define("variant-selector", VariantSelector);
   </script>
 
 
