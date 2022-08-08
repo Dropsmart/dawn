@@ -36,9 +36,9 @@
         "9a9d5076-c25c-42e7-84b7-826c7662866a": {
           "type": "collapsible_orderbump",
           "settings": {
-            "heading": "Sidelite Left",
+            "heading": "Sitelite Left",
             "icon": "box",
-            "tag": "Sidelite"
+            "tag": "Sitelite"
           }
         },
         "quantity_selector": {
