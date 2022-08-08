@@ -68,12 +68,24 @@
         function changeDDL(blockId){
           var ddl = document.querySelector('#dropdown-{{ id }}-{{ section.id }}');
           var id = ddl.value;
-          console.log(id);
+          console.log('id', id);
           if (id) {
-            console.log(id);
             var el = document.querySelector('#'+id+'-'+blockId);
             el.style.display = "block";
+            hideSiblings(el);
           }
+        }
+
+        function hideSiblings (el) {
+            var sibling = ele.parentNode.firstChild;
+
+        	// Loop through each sibling and push to the array
+        	while (sibling) {
+        		if (sibling.nodeType === 1 && sibling !== elem) {
+        			sibling.style.display = "none";
+        		}
+        		sibling = sibling.nextSibling
+        	}
         }
 
 </script>
