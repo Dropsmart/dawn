@@ -623,13 +623,13 @@
             this.getSelectedOptions();
             this.getSelectedVariant();
             if(this.currentVariant) {
-
                 this.updateFormID();
                 this.updatePrice();
                 this.getSameTags();
             }
         }
         showImage(variant){
+          console.log(this);
           var imageSiteLite = ''
           const imageSource = document.querySelector('#el'+variant);
           console.log('#el'+variant)
@@ -645,9 +645,7 @@
         getVariantJSON() {
             this.variantData = this.variantData || JSON.parse(this.querySelector('[type="application/json"]').textContent);
             return this.variantData;
-
-
-              }
+        }
         getSelectedVariant() {
             this.currentVariant = this.getVariantJSON().find(
                 (variant) => {
