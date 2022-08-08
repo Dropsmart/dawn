@@ -213,6 +213,14 @@
 
         {%- for block in section.blocks -%}
           {%- case block.type -%}
+          {%- when 'collapsible-orderbump' -%}
+            {% render 'collapsible-orderbump', 
+              id: block.id, 
+              heading: block.settings.heading, 
+              icon: block.settings.icon,
+              collection: collections.all.products,
+              tag: block.settings.tag
+            %}
           {%- when '@app' -%}
             {% render block %}
           {%- when 'text' -%}
