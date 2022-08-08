@@ -891,6 +891,10 @@ class VariantRadios extends VariantSelects {
   }
 
   updateOptions() {
+    var setSelectOrderBumpNone = document.querySelector('#dropdown');
+    setSelectOrderBumpNone.selectedIndex = 0;
+    var BoxVariantNone = document.getElementsByClassName('box-selector');
+
     const fieldsets = Array.from(this.querySelectorAll('fieldset'));
     this.options = fieldsets.map((fieldset) => {
       return Array.from(fieldset.querySelectorAll('input')).find((radio) => radio.checked).value;
