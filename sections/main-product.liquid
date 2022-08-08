@@ -213,14 +213,6 @@
 
         {%- for block in section.blocks -%}
           {%- case block.type -%}
-          {%- when 'collapsible-orderbump' -%}
-            {% render 'collapsible-orderbump', 
-              id: block.id, 
-              heading: block.settings.heading, 
-              icon: block.settings.icon,
-              collection: collections.all.products,
-              tag: block.settings.tag
-            %}
           {%- when '@app' -%}
             {% render block %}
           {%- when 'text' -%}
@@ -265,6 +257,14 @@
             {%- endif -%}
           {%- when 'custom_liquid' -%}
             {{ block.settings.custom_liquid }}
+          {%- when 'collapsible_orderbump' -%}
+            {% render 'collapsible-orderbump', 
+              id: block.id, 
+              heading: block.settings.heading, 
+              icon: block.settings.icon,
+              collection: collections.all.products,
+              tag: block.settings.tag
+            %}
           {%- when 'collapsible_tab' -%}
             <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
               <details id="Details-{{ block.id }}-{{ section.id }}">
