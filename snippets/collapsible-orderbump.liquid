@@ -68,7 +68,7 @@
         function changeDDL(blockId){
           var ddl = document.querySelector('#dropdown-{{ id }}-{{ section.id }}');
           var id = ddl.value;
-          console.log('id', id);
+          console.log('id', id, '#dropdown-{{ id }}-{{ section.id }}');
           if (id) {
             var el = document.querySelector('#'+id+'-'+blockId);
             el.style.display = "block";
