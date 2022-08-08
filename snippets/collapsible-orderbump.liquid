@@ -22,7 +22,7 @@
         {% for product in collection %}
           {% if product.tags contains tag %}
             {% unless product.has_only_default_variant %}
-              <sitelite-selector data-url="{{ product.url}}" data-section="{{ section.id }}" id="order-{{product.id}}" style='display:none'>
+              <sitelite-selector data-url="{{ product.url}}" data-section="{{ section.id }}" id="order-{{product.id}}-{{ id }}-{{ section.id }}" style='display:none'>
                 {% for option in product.options_with_values %}
                     <label for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
 
@@ -74,9 +74,9 @@
             prevEl.style.display = "none";
           }
           var id = ddl.value;
-          if (id){
+          if (id) {
             console.log(id);
-            var el = document.querySelector('#'+id);
+            var el = document.querySelector('#'+id+'{{-{{ id }}-{{ section.id }}}}');
             el.style.display = "block";
             prevEl = el;
           }
