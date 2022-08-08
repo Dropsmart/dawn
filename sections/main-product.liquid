@@ -263,6 +263,7 @@
               heading: block.settings.heading, 
               icon: block.settings.icon,
               collection: collections.all.products,
+              position: block.settings.position,
               tag: block.settings.tag
             %}
           {%- when 'collapsible_tab' -%}
@@ -1136,6 +1137,26 @@
           "default": "Order Bump",
           "info": "t:sections.main-product.blocks.collapsible_tab.settings.heading.info",
           "label": "t:sections.main-product.blocks.collapsible_tab.settings.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            },
+            {
+              "value": "top",
+              "label": "Top"
+            }
+          ],
+          "default": "left",
+          "label": "Position"
         },
         {
           "type": "select",
