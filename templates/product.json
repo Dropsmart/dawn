@@ -46,7 +46,7 @@
           "type": "collapsible_orderbump",
           "settings": {
             "heading": "Sidelite Right",
-            "position": "left",
+            "position": "right",
             "icon": "price_tag",
             "tag": "Sidelite"
           }
