@@ -460,37 +460,7 @@
   {%- endif -%}
 
   <script>
-      /*
-        var ddl = document.querySelector('#dropdown');
-        var ddlRight = document.querySelector('#dropdownRight');
-
-        var prevEl;
-        function changeDDL(){
-          if(prevEl){
-            prevEl.style.display = "none";
-          }
-          var id = ddl.value;
-          if(id){
-            var el = document.querySelector('#'+id);
-            el.style.display = "block";
-            prevEl = el;
-          }
-        }
-
-        function changeDDLRight(){
-          if(prevEl){
-            prevEl.style.display = "none";
-          }
-          var id = ddlRight.value;
-          if(id){
-            var el = document.querySelector('#'+id);
-            el.style.display = "block";
-            prevEl = el;
-          }
-        }
-*/
-
-
+    
     class SideliteSelector extends HTMLElement {
         constructor() {
             super();
@@ -506,12 +476,13 @@
                 this.getSameTags();
             }
         }
+
         showImage(variant){
           console.log(this);
           var imageSiteLite = ''
           const imageSource = document.querySelector('#el'+variant);
           console.log('#el'+variant)
-          console.log(imageSource.dataset.image )
+          console.log(imageSource)
           var imageSiteLite = document.getElementById('imageSiteLite');
           imageSiteLite.src = '//cdn.shopify.com/s/files/1/0620/1802/7696/' + imageSource.dataset.image
 
