@@ -30,13 +30,14 @@
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
-            "picker_type": "button"
+            "picker_type": "dropdown"
           }
         },
         "9a9d5076-c25c-42e7-84b7-826c7662866a": {
           "type": "collapsible_orderbump",
           "settings": {
             "heading": "Sidelite Left",
+            "position": "left",
             "icon": "box",
             "tag": "Sidelite"
           }
@@ -45,6 +46,7 @@
           "type": "collapsible_orderbump",
           "settings": {
             "heading": "Sidelite Right",
+            "position": "left",
             "icon": "price_tag",
             "tag": "Sidelite"
           }
