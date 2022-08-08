@@ -10,7 +10,7 @@
       {% render 'icon-caret' %}
     </summary>
     <div class="accordion__content rte" id="orderbump-{{ id }}-{{ section.id }}">
-      <select  id="dropdown" name="dropdown" onchange="changeDDL()" >
+      <select  id="dropdown-{{ id }}-{{ section.id }}" name="dropdown" onchange="changeDDL()" >
           <option value='0'> Select {{heading}} </options>
           {% for product in collection %}
               {% if product.tags contains tag %}
@@ -63,3 +63,22 @@
     </div>
   </details>
 </div>
+
+<script>
+
+        var ddl = document.querySelector('#dropdown-{{ id }}-{{ section.id }}');
+
+        var prevEl;
+        function changeDDL(){
+          if(prevEl){
+            prevEl.style.display = "none";
+          }
+          var id = ddl.value;
+          if(id){
+            var el = document.querySelector('#'+id);
+            el.style.display = "block";
+            prevEl = el;
+          }
+        }
+
+</script>
