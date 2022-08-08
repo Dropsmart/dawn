@@ -90,6 +90,14 @@
           "settings": {
             "share_label": "Share"
           }
+        },
+        "9a9d5076-c25c-42e7-84b7-826c7662866a": {
+          "type": "collapsible_orderbump",
+          "settings": {
+            "heading": "Sidelite Left",
+            "icon": "box",
+            "tag": "Sidelite"
+          }
         }
       },
       "block_order": [
@@ -105,7 +113,8 @@
         "quantity_selector",
         "buy_buttons",
         "description",
-        "share"
+        "share",
+        "9a9d5076-c25c-42e7-84b7-826c7662866a"
       ],
       "settings": {
         "enable_sticky_info": true,
