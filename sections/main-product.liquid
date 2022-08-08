@@ -8,17 +8,23 @@
   {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
 
+
   {%- style -%}
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
       padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
     }
 
+
     @media screen and (min-width: 750px) {
       .section-{{ section.id }}-padding {
         padding-top: {{ section.settings.padding_top }}px;
         padding-bottom: {{ section.settings.padding_bottom }}px;
       }
+    }
+
+    .product__media-item{
+      display:none;
     }
   {%- endstyle -%}
 
@@ -39,7 +45,7 @@
           <a class="skip-to-content-link button visually-hidden quick-add-hidden" href="#ProductInfo-{{ section.id }}">
             {{ "accessibility.skip_to_product_info" | t }}
           </a>
-          <ul id="Slider-Gallery-{{ section.id }}" class="product__media-list contains-media grid grid--peek list-unstyled slider slider--mobile" role="list">
+          <ul id="Slider-Gallery-{{ section.id }}" class="product__media-list contains-media grid grid--peek list-unstyled slider " role="list">
             {%- liquid
               assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src'
               assign media_count = product.media.size
@@ -77,6 +83,9 @@
               {%- endunless -%}
             {%- endfor -%}
           </ul>
+          <div class="image-source">
+            <img src="" alt="" id="imageSiteLite">
+          </div>
           <div class="slider-buttons no-js-hidden quick-add-hidden{% if media_count < 2 or section.settings.mobile_thumbnails == 'show' %} small-hide{% endif %}">
             <button type="button" class="slider-button slider-button--prev" name="previous" aria-label="{{ 'general.slider.previous_slide' | t }}">{% render 'icon-caret' %}</button>
             <div class="slider-counter caption">
@@ -409,6 +418,143 @@
                 </div>
               </div>
             </noscript>
+
+          <!-- BOX -->
+
+
+
+
+      <div class="orderbump">
+
+
+            <h2>Sitelite Left</h2>
+
+            <select  id="dropdown" name="dropdown" onchange="changeDDL()" >
+              <option value='0'> Selecionar Produto </options>
+            {% for product in collections.all.products %}
+            {% if product.tags contains "Sitelite" %}
+                <option value="order-{{product.id}}">{{product.title }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+          <h3>Variants: </h3>
+          <div class="box-select">
+            {% for product in collections.all.products %}
+              {% if product.tags contains "Sitelite" %}
+                {% unless product.has_only_default_variant %}
+                  <sitelite-selector data-url="{{ product.url}}" data-section="{{ section.id }}" id="order-{{product.id}}" style='display:none'>
+                      {% for option in product.options_with_values %}
+                          <label for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+
+                          <div class="my-2">
+                              <select
+                                  name="options[{{ option.name | escape }}]"
+                                  id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                                  class="w-full border py-3 px-3 selectVariant "
+                                  data-section="{{ section.id }}"
+                              >
+                                  {% assign count = 0 %}
+                                  {% for value in option.values %}
+                                  {% assign count = count | plus:1 %}
+                                      <option
+                                          value="{{ value | escape }}"
+                                          {% if option.selected_value == value %}
+                                              selected="selected"
+                                          {% endif %}
+                                          data-image="{{product.variants[count ].featured_image.src}}"
+                                          id="el{{product.variants[count ].id}}"
+
+
+                                      >
+                                          {{ value }}
+                                      </option>
+
+                                  {% endfor %}
+                              </select>
+                          </div>
+
+                          <script type="application/json">
+                              {{ product.variants | json }}
+                          </script>
+
+
+
+                      {% endfor %}
+                  </sitelite-selector>
+                {% endunless %}
+              {% endif %}
+            {% endfor %}
+          </div>
+
+
+      </div>
+
+        <div class="orderbump">
+
+
+            <h2>Sitelite Right</h2>
+
+            <select  id="dropdownRight" name="dropdown" onchange="changeDDLRight()" >
+              <option > Selecionar Produto </options>
+            {% for product in collections.all.products %}
+            {% if product.tags contains "SitelightRight" %}
+                <option value="order-{{product.id}}">{{product.title }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+          <h3>Variants: </h3>
+          <div class="box-select">
+            {% for product in collections.all.products %}
+              {% if product.tags contains "SitelightRight" %}
+                {% unless product.has_only_default_variant %}
+                  <siteRight-selector data-url="{{ product.url}}" data-section="{{ section.id }}" id="order-{{product.id}}" style='display:none'>
+                      {% for option in product.options_with_values %}
+                          <label for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+
+                          <div class="my-2">
+                              <select
+                                  name="options[{{ option.name | escape }}]"
+                                  id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                                  class="w-full border py-3 px-3 selectVariant "
+                                  data-section="{{ section.id }}"
+                              >
+                                  {% assign count = 0 %}
+                                  {% for value in option.values %}
+                                  {% assign count = count | plus:1 %}
+                                      <option
+                                          value="{{ value | escape }}"
+                                          {% if option.selected_value == value %}
+                                              selected="selected"
+                                          {% endif %}
+                                          data-image="{{product.variants[count ].featured_image.src}}"
+                                          id="el{{product.variants[count ].id}}"
+
+
+                                      >
+                                          {{ value }}
+                                      </option>
+
+                                  {% endfor %}
+                              </select>
+                          </div>
+
+                          <script type="application/json">
+                              {{ product.variants | json }}
+                          </script>
+
+
+
+                      {% endfor %}
+                  </siteRight-selector>
+                {% endunless %}
+              {% endif %}
+            {% endfor %}
+          </div>
+
+
+      </div>
+
+
           {%- when 'buy_buttons' -%}
             <div {{ block.shopify_attributes }}>
               <product-form class="product-form">
@@ -472,6 +618,7 @@
                 </template>
               </pickup-availability>
             </div>
+
 
             <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
           {%- when 'rating' -%}
@@ -561,6 +708,227 @@
   {%- endif -%}
 
   <script>
+
+        var ddl = document.querySelector('#dropdown');
+        var ddlRight = document.querySelector('#dropdownRight');
+
+        var prevEl;
+        function changeDDL(){
+          if(prevEl){
+            prevEl.style.display = "none";
+          }
+          var id = ddl.value;
+          if(id){
+            var el = document.querySelector('#'+id);
+            el.style.display = "block";
+            prevEl = el;
+          }
+        }
+
+        function changeDDLRight(){
+          if(prevEl){
+            prevEl.style.display = "none";
+          }
+          var id = ddlRight.value;
+          if(id){
+            var el = document.querySelector('#'+id);
+            el.style.display = "block";
+            prevEl = el;
+          }
+        }
+
+
+
+    class SiteliteSelector extends HTMLElement {
+        constructor() {
+            super();
+            this.addEventListener("change", this.onVariantChange);
+        }
+        onVariantChange() {
+            this.getSelectedOptions();
+            this.getSelectedVariant();
+            if(this.currentVariant) {
+
+                this.updateFormID();
+                this.updatePrice();
+                this.getSameTags();
+            }
+        }
+        showImage(variant){
+          var imageSiteLite = ''
+          const imageSource = document.querySelector('#el'+variant);
+          console.log('#el'+variant)
+          console.log(imageSource.dataset.image )
+          var imageSiteLite = document.getElementById('imageSiteLite');
+          imageSiteLite.src = '//cdn.shopify.com/s/files/1/0620/1802/7696/' + imageSource.dataset.image
+
+        }
+        getSelectedOptions() {
+            this.options = Array.from(this.querySelectorAll('select'), (select) => select.value);
+            console.log(this.options);
+        }
+        getVariantJSON() {
+            this.variantData = this.variantData || JSON.parse(this.querySelector('[type="application/json"]').textContent);
+            return this.variantData;
+
+
+              }
+        getSelectedVariant() {
+            this.currentVariant = this.getVariantJSON().find(
+                (variant) => {
+                    const findings = !variant.options.map(
+                        (option, index) => {
+                            return this.options[index] === option;
+                        }
+                    ).includes(false);
+                    if(findings) return variant;
+                }
+            );
+
+
+
+            this.showImage(this.currentVariant.id)
+
+
+
+
+
+            // fetch(window.Shopify.routes.root + 'cart/add.js', {
+            // method: 'POST',
+            // headers: {
+            //   'Content-Type': 'application/json'
+            // },
+            // body: JSON.stringify(this.currentVariant)
+            //     })
+            //     .then(response => {
+            //       return response.json();
+            //     })
+            //     .catch((error) => {
+            //       console.error('Error:', error);
+            //     });
+
+
+        }
+        updateURL() {
+            if(!this.currentVariant) return;
+            window.history.replaceState({}, '', `${this.dataset.url}?variant=${this.currentVariant.id}`);
+        }
+        updateFormID() {
+            const form_input = document.querySelector("#product-form").querySelector('input[name="id"]');
+            form_input.value = this.currentVariant.id;
+        }
+        updatePrice() {
+            fetch(`${this.dataset.url}?variant=${this.currentVariant.id}&section_id=${this.dataset.section}`)
+            .then((response) => response.text())
+            .then((responseText) => {
+                const id = `price-${this.dataset.section}`;
+                const html = new DOMParser().parseFromString(responseText, 'text/html');
+                const oldPrice = document.getElementById(id);
+                const newPrice = html.getElementById(id);
+                if(oldPrice && newPrice) oldPrice.innerHTML = newPrice.innerHTML;
+            });
+        }
+    }
+    customElements.define("sitelite-selector", SiteliteSelector);
+
+    class SiteliteRightSelector extends HTMLElement {
+        constructor() {
+            super();
+            this.addEventListener("change", this.onVariantChange);
+        }
+        onVariantChange() {
+            this.getSelectedOptions();
+            this.getSelectedVariant();
+            if(this.currentVariant) {
+
+                this.updateFormID();
+                this.updatePrice();
+                this.getSameTags();
+            }
+        }
+        showImage(variant){
+          var imageSiteLiteRight = ''
+          const imageSourceRight = document.querySelector('#el'+variant);
+          console.log('#el'+variant)
+          console.log(imageSourceRight.dataset.image )
+          var imageSiteLiteRight = document.getElementById('imageSiteLiteRight');
+          imageSiteLiteRight.src = '//cdn.shopify.com/s/files/1/0620/1802/7696/' + imageSourceRight.dataset.image
+
+        }
+        getSelectedOptions() {
+            this.options = Array.from(this.querySelectorAll('select'), (select) => select.value);
+            console.log(this.options);
+        }
+        getVariantJSON() {
+            this.variantData = this.variantData || JSON.parse(this.querySelector('[type="application/json"]').textContent);
+            return this.variantData;
+
+
+              }
+        getSelectedVariant() {
+            this.currentVariant = this.getVariantJSON().find(
+                (variant) => {
+                    const findings = !variant.options.map(
+                        (option, index) => {
+                            return this.options[index] === option;
+                        }
+                    ).includes(false);
+                    if(findings) return variant;
+                }
+            );
+
+
+
+            this.showImage(this.currentVariant.id)
+
+
+
+
+
+            // fetch(window.Shopify.routes.root + 'cart/add.js', {
+            // method: 'POST',
+            // headers: {
+            //   'Content-Type': 'application/json'
+            // },
+            // body: JSON.stringify(this.currentVariant)
+            //     })
+            //     .then(response => {
+            //       return response.json();
+            //     })
+            //     .catch((error) => {
+            //       console.error('Error:', error);
+            //     });
+
+
+        }
+        updateURL() {
+            if(!this.currentVariant) return;
+            window.history.replaceState({}, '', `${this.dataset.url}?variant=${this.currentVariant.id}`);
+        }
+        updateFormID() {
+            const form_input = document.querySelector("#product-form").querySelector('input[name="id"]');
+            form_input.value = this.currentVariant.id;
+        }
+        updatePrice() {
+            fetch(`${this.dataset.url}?variant=${this.currentVariant.id}&section_id=${this.dataset.section}`)
+            .then((response) => response.text())
+            .then((responseText) => {
+                const id = `price-${this.dataset.section}`;
+                const html = new DOMParser().parseFromString(responseText, 'text/html');
+                const oldPrice = document.getElementById(id);
+                const newPrice = html.getElementById(id);
+                if(oldPrice && newPrice) oldPrice.innerHTML = newPrice.innerHTML;
+            });
+        }
+    }
+    customElements.define("siteRight-selector", SiteliteRightSelector);
+  </script>
+
+
+
+
+
+  <script>
     document.addEventListener('DOMContentLoaded', function() {
       function isIE() {
         const ua = window.navigator.userAgent;
@@ -579,6 +947,7 @@
 
       document.querySelector('#Variants-{{ section.id }}').addEventListener('change', function(event) {
         hiddenInput.value = event.currentTarget.value;
+
       });
     });
   </script>
