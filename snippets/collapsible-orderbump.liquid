@@ -65,7 +65,7 @@
 </div>
 
 <script>
-        var prev{{ id }};
+        var prev{{ id | remove: '-' }};
         function change{{ id | remove: '-' }}DDL(){
           var ddl = document.querySelector('#dropdown-{{ id }}-{{ section.id }}');
           if(prev{{ id }}){
@@ -76,7 +76,7 @@
             console.log(id);
             var el = document.querySelector('#'+id+'-{{ id }}-{{ section.id }}');
             el.style.display = "block";
-            prev{{ id }} = el;
+            prev{{ id | remove: '-' }} = el;
           }
         }
 
