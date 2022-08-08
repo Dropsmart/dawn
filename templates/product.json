@@ -41,6 +41,14 @@
             "tag": "Sidelite"
           }
         },
+        "2058bba7-8be1-4d4e-bd87-ae1f8ad6797b": {
+          "type": "collapsible_orderbump",
+          "settings": {
+            "heading": "Sidelite Right",
+            "icon": "price_tag",
+            "tag": "Sidelite"
+          }
+        },
         "quantity_selector": {
           "type": "quantity_selector",
           "settings": {
@@ -71,6 +79,7 @@
         "price",
         "variant_picker",
         "9a9d5076-c25c-42e7-84b7-826c7662866a",
+        "2058bba7-8be1-4d4e-bd87-ae1f8ad6797b",
         "quantity_selector",
         "buy_buttons",
         "description",
