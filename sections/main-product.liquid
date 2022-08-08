@@ -427,139 +427,7 @@
               </div>
             </noscript>
 
-          <!-- BOX -->
-
-
-      <!--div class="orderbump">
-
-
-            <h2>Sitelite Left</h2>
-
-            <select  id="dropdown" name="dropdown" onchange="changeDDL()" >
-              <option value='0'> Selecionar Produto </options>
-            {% for product in collections.all.products %}
-            {% if product.tags contains "Sitelite" %}
-                <option value="order-{{product.id}}">{{product.title }}</option>
-            {% endif %}
-            {% endfor %}
-          </select>
-          <h3>Variants: </h3>
-          <div class="box-select">
-            {% for product in collections.all.products %}
-              {% if product.tags contains "Sitelite" %}
-                {% unless product.has_only_default_variant %}
-                  <sitelite-selector data-url="{{ product.url}}" data-section="{{ section.id }}" id="order-{{product.id}}" style='display:none'>
-                      {% for option in product.options_with_values %}
-                          <label for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
-
-                          <div class="my-2">
-                              <select
-                                  name="options[{{ option.name | escape }}]"
-                                  id="Option-{{ section.id }}-{{ forloop.index0 }}"
-                                  class="w-full border py-3 px-3 selectVariant "
-                                  data-section="{{ section.id }}"
-                              >
-                                  {% assign count = 0 %}
-                                  {% for value in option.values %}
-                                  {% assign count = count | plus:1 %}
-                                      <option
-                                          value="{{ value | escape }}"
-                                          {% if option.selected_value == value %}
-                                              selected="selected"
-                                          {% endif %}
-                                          data-image="{{product.variants[count ].featured_image.src}}"
-                                          id="el{{product.variants[count ].id}}"
-
-
-                                      >
-                                          {{ value }}
-                                      </option>
-
-                                  {% endfor %}
-                              </select>
-                          </div>
-
-                          <script type="application/json">
-                              {{ product.variants | json }}
-                          </script>
-
-
-
-                      {% endfor %}
-                  </sitelite-selector>
-                {% endunless %}
-              {% endif %}
-            {% endfor %}
-          </div>
-
-
-      </div>
-
-        <div class="orderbump">
-
-
-            <h2>Sitelite Right</h2>
-
-            <select  id="dropdownRight" name="dropdown" onchange="changeDDLRight()" >
-              <option > Selecionar Produto </options>
-            {% for product in collections.all.products %}
-            {% if product.tags contains "SitelightRight" %}
-                <option value="order-{{product.id}}">{{product.title }}</option>
-            {% endif %}
-            {% endfor %}
-          </select>
-          <h3>Variants: </h3>
-          <div class="box-select">
-            {% for product in collections.all.products %}
-              {% if product.tags contains "SitelightRight" %}
-                {% unless product.has_only_default_variant %}
-                  <siteRight-selector data-url="{{ product.url}}" data-section="{{ section.id }}" id="order-{{product.id}}" style='display:none'>
-                      {% for option in product.options_with_values %}
-                          <label for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
-
-                          <div class="my-2">
-                              <select
-                                  name="options[{{ option.name | escape }}]"
-                                  id="Option-{{ section.id }}-{{ forloop.index0 }}"
-                                  class="w-full border py-3 px-3 selectVariant "
-                                  data-section="{{ section.id }}"
-                              >
-                                  {% assign count = 0 %}
-                                  {% for value in option.values %}
-                                  {% assign count = count | plus:1 %}
-                                      <option
-                                          value="{{ value | escape }}"
-                                          {% if option.selected_value == value %}
-                                              selected="selected"
-                                          {% endif %}
-                                          data-image="{{product.variants[count ].featured_image.src}}"
-                                          id="el{{product.variants[count ].id}}"
-
-
-                                      >
-                                          {{ value }}
-                                      </option>
-
-                                  {% endfor %}
-                              </select>
-                          </div>
-
-                          <script type="application/json">
-                              {{ product.variants | json }}
-                          </script>
-
-
-
-                      {% endfor %}
-                  </siteRight-selector>
-                {% endunless %}
-              {% endif %}
-            {% endfor %}
-          </div>
-
-
-      </div -->
-        
+          <!-- BOX -->       
 
           {%- when 'buy_buttons' -%}
             <div {{ block.shopify_attributes }}>
@@ -745,11 +613,12 @@
 */
 
 
-    class SiteliteSelector extends HTMLElement {
+    class SideliteSelector extends HTMLElement {
         constructor() {
             super();
             this.addEventListener("change", this.onVariantChange);
         }
+
         onVariantChange() {
             this.getSelectedOptions();
             this.getSelectedVariant();
@@ -835,7 +704,7 @@
             });
         }
     }
-    customElements.define("sitelite-selector", SiteliteSelector);
+    customElements.define("sidelite-selector", SideliteSelector);
 
     class SiteliteRightSelector extends HTMLElement {
         constructor() {
