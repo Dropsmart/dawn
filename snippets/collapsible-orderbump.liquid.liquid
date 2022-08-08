@@ -19,7 +19,7 @@
           {% endfor %}
       </select>
       <div class="box-select">
-        {% for product in collections.all.products %}
+        {% for product in collection %}
           {% if product.tags contains tag %}
             {% unless product.has_only_default_variant %}
               <sitelite-selector data-url="{{ product.url}}" data-section="{{ section.id }}" id="order-{{product.id}}" style='display:none'>
