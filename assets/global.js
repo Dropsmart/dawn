@@ -773,7 +773,7 @@ class VariantSelects extends HTMLElement {
   updateOrderBumpVariants(value, name) {
       console.log(value, name);
       const variantSelector = document.querySelectorAll('select[name="'+name+'"]');
-      console.log(variantSelector);
+      variantSelector.map( select => select.value = value);
   }
 
   updateOptions() {
