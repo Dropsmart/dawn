@@ -465,7 +465,9 @@
             super();
             this.addEventListener("change", this.onVariantChange);
         }
+      
         onVariantChange() {
+            console.log('variant changed');
             this.getSelectedOptions();
             this.getSelectedVariant();
             if(this.currentVariant) {
