@@ -20,6 +20,7 @@ ddwdw
           this.addEventListener("change", this.onVariantChange);
       }
       onVariantChange(e) {
+          console.log(e);
           this.updateAllVariants(e);
           this.getSelectedOptions();
           this.getSelectedVariant();
