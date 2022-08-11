@@ -750,7 +750,6 @@ class VariantSelects extends HTMLElement {
   }
 
   onVariantChange(e) {
-    console.log(e);
     this.updateOrderBumpVariants(e.target.value, e.target.name);
     this.updateOptions();
     this.updateMasterId();
@@ -774,7 +773,8 @@ class VariantSelects extends HTMLElement {
       const variantSelector = document.querySelectorAll('select[name="'+name+'"]');
       variantSelector.forEach( select => select.value = value);
       for (const selector of variantSelector) {
-        selector.value = value
+        selector.value = value;
+        selector.onchange();
       }
   }
 
