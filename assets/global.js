@@ -774,7 +774,7 @@ class VariantSelects extends HTMLElement {
       variantSelector.forEach( select => select.value = value);
       for (const selector of variantSelector) {
         selector.value = value;
-        const parent = selector.parentElement.parentElement.parentElement
+        const parent = selector.parentElement.parentElement
         console.log(parent);
         if ("createEvent" in document) {
           var evt = document.createEvent("HTMLEvents");
