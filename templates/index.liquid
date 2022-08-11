@@ -19,7 +19,8 @@ ddwdw
           super();
           this.addEventListener("change", this.onVariantChange);
       }
-      onVariantChange() {
+      onVariantChange(e) {
+          this.updateAllVariants(e);
           this.getSelectedOptions();
           this.getSelectedVariant();
           if(this.currentVariant) {
@@ -28,6 +29,9 @@ ddwdw
               this.updatePrice();
               this.getSameTags();
           }
+      }
+      updateAllVariants(e) {
+        console.log(e);
       }
       getSelectedOptions() {
           this.options = Array.from(this.querySelectorAll('select'), (select) => select.value);
