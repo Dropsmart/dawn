@@ -11,7 +11,6 @@
     </summary>
     <div class="accordion__content rte" id="orderbump-{{ id }}-{{ section.id }}">
       <select  id="dropdown-{{id | remove: '-'}}" name="product" onchange="changeDDL('{{id | remove: '-'}}')" >
-          <option value='0'> Select {{heading}} </options>
           {% for product in collection %}
               {% if product.tags contains tag %}
                   <option value="order-{{product.id}}">{{product.title }}</option>
