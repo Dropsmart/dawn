@@ -779,7 +779,7 @@ class VariantSelects extends HTMLElement {
           evt.initEvent("change", false, true);
           selector.dispatchEvent(evt);
         } else {
-          selector.fireEvent("onchange");
+          selector.fireEvent("change");
         }
       }
   }
