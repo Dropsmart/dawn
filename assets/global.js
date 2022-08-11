@@ -774,6 +774,7 @@ class VariantSelects extends HTMLElement {
       variantSelector.forEach( select => select.value = value);
       for (const selector of variantSelector) {
         selector.value = value;
+        selector.onVariantChange();
         if ("createEvent" in document) {
           var evt = document.createEvent("HTMLEvents");
           evt.initEvent("change", false, true);
