@@ -750,7 +750,7 @@ class VariantSelects extends HTMLElement {
   }
 
   onVariantChange(e) {
-    console.log(e.target.value, e.target.name);
+    this.updateOrderBumpVariants(e.target.value, e.target.name);
     this.updateOptions();
     this.updateMasterId();
     this.toggleAddButton(true, '', false);
@@ -767,6 +767,11 @@ class VariantSelects extends HTMLElement {
       this.renderProductInfo();
       this.updateShareUrl();
     }
+  }
+
+  updateOrderBumpVariants(value, name) {
+      const variantSelector = window.querySelectorAll('select[name="'+name+''"]');
+      console.log(variantSelector);
   }
 
   updateOptions() {
